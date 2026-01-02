@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haji Abdi College of Health Science</title>
+
+    <!-- Styles -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- App Container -->
+    <div id="app" class="flex h-screen overflow-hidden">
+
+        <!-- Login View -->
+        <div id="login-view" class="login-screen hidden">
+            <div class="login-card fade-in">
+                <!-- Logo Place Holder -->
+                <div class="flex items-center gap-2">
+                    <img src="logo.png" id="app-logo" style="height: 32px; width: 32px; object-fit: contain;">
+                    <span class="font-bold text-lg text-primary tracking-tight truncate"
+                        title="Haji Abdi College of Health Science">Haji Abdi College</span>
+                </div>
+                <div class="text-center mb-4">
+                    <h2 class="text-primary mb-2">Welcome Back</h2>
+                    <p class="text-muted">Sign in to manage your school</p>
+                </div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" id="username" class="form-input" placeholder="admin">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full">Sign In</button>
+                    <p id="login-error" class="text-red-500 text-sm mt-4 text-center hidden">Invalid credentials</p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Authenticated Layout -->
+        <div id="app-layout" class="hidden">
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="brand">
+                    <i data-feather="book-open"></i> Dugsiga
+                </div>
+                <nav>
+                    <a href="#" class="nav-link active" data-view="dashboard">
+                        <i data-feather="grid"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-link" data-view="students">
+                        <i data-feather="users"></i> Students
+                    </a>
+
+                    <a href="#" class="nav-link" data-view="fees">
+                        <i data-feather="dollar-sign"></i> Fees
+                    </a>
+                    <a href="#" class="nav-link" data-view="reports">
+                        <i data-feather="file-text"></i> Reports
+                    </a>
+                    <a href="#" class="nav-link" data-view="users">
+                        <i data-feather="user-check"></i> Users
+                    </a>
+                </nav>
+                <div style="margin-top: auto;">
+                    <a href="#" class="nav-link" id="logout-btn">
+                        <i data-feather="log-out"></i> Logout
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <header>
+                    <h2 id="page-title">Dashboard</h2>
+                    <div class="flex items-center gap-4">
+                        <div class="search-bar">
+                            <i data-feather="search" class="search-icon"></i>
+                            <input type="text" placeholder="Search anything..." id="global-search">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-medium">Admin User</span>
+                            <div
+                                style="width: 32px; height: 32px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i data-feather="user" style="width: 16px; height: 16px;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <main id="view-container" class="fade-in">
+                    <!-- Dynamic Content will be injected here -->
+                </main>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <!-- Using ES Modules for Firebase and App Logic -->
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
