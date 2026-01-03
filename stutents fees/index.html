@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dugsiga Manager</title>
+
+    <!-- Google Fonts: Outfit (Headings) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- App Styles -->
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <!-- Login View -->
+    <div id="login-view" class="hidden">
+        <div class="login-card glassy">
+            <div class="brand">
+                <i data-feather="book-open"></i>
+                <h1>Dugsiga Manager</h1>
+            </div>
+            <p class="text-muted">Welcome back, Administrator</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" class="form-input" placeholder="admin" value="admin">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="•••••••" value="123">
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App Layout -->
+    <div id="app-layout" class="hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar glassy">
+            <div class="brand">
+                <i data-feather="book-open"></i>
+                <span>Dugsiga</span>
+            </div>
+            <nav>
+                <a href="#" class="nav-link active" data-view="dashboard">
+                    <i data-feather="grid"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-link" data-view="students">
+                    <i data-feather="users"></i>
+                    <span>Students</span>
+                </a>
+                <a href="#" class="nav-link" data-view="fees">
+                    <i data-feather="dollar-sign"></i>
+                    <span>Fees & Finance</span>
+                </a>
+                <a href="#" class="nav-link" data-view="reports">
+                    <i data-feather="pie-chart"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="nav-link" data-view="users" id="users-nav-link">
+                    <i data-feather="user-plus"></i>
+                    <span>Users</span>
+                </a>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar">A</div>
+                <div class="info">
+                    <span class="name">Admin User</span>
+                    <span class="role">Administrator</span>
+                </div>
+                <button id="logout-btn" class="icon-btn">
+                    <i data-feather="log-out"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar glassy">
+                <h2 id="page-title">Dashboard</h2>
+                <div class="actions">
+                    <button class="icon-btn"><i data-feather="bell"></i></button>
+                </div>
+            </header>
+
+            <div id="view-container" class="view-content fade-in">
+                <!-- Dynamic Content Loads Here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Student Modal -->
+    <div id="student-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add New Student</h3>
+                <button class="icon-btn" onclick="App.closeModal()">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <form id="student-form" class="flex-col gap-4">
+                <input type="hidden" id="student-id">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="student-name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Semester</label>
+                    <select id="student-semester" class="form-input" required>
+                        <option value="Sem 1">Sem 1</option>
+                        <option value="Sem 2">Sem 2</option>
+                        <option value="Sem 3">Sem 3</option>
+                        <option value="Sem 4">Sem 4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Parent Name</label>
+                    <input type="text" id="parent-name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone-number" class="form-input" placeholder="e.g. 61-555-0000" required>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Enrollment Year</label>
+                        <select id="student-year" class="form-input">
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Enrollment Month</label>
+                        <select id="student-month" class="form-input">
+                            <option value="December">December</option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex gap-4" style="margin-top: 1rem;">
+                    <button type="button" class="btn btn-secondary w-full" onclick="App.closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary w-full">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div id="user-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="user-modal-title">Add New User</h3>
+                <button class="icon-btn" onclick="App.closeUserModal()">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div id="user-form-container">
+                <form id="user-form" class="flex-col gap-4">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="user-username" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="user-password" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select id="user-role" class="form-input" required>
+                            <option value="Admin">Admin</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                    </div>
+                    <div class="flex gap-4" style="margin-top: 1rem;">
+                        <button type="button" class="btn btn-secondary w-full"
+                            onclick="App.closeUserModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary w-full">Create User</button>
+                    </div>
+                </form>
+            </div>
+            <div id="user-success-container" class="hidden" style="padding: 1rem;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div
+                        style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; background: #d1fae5; border-radius: 50%; margin-bottom: 1rem;">
+                        <i data-feather="check" style="width: 32px; height: 32px; color: #059669;"></i>
+                    </div>
+                    <h3 style="margin-bottom: 0.5rem;">User Created Successfully!</h3>
+                    <p class="text-muted">Share this link with the user to give them access</p>
+                </div>
+                <div class="form-group">
+                    <label>Shareable Login Link</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="user-login-link" class="form-input" readonly>
+                        <button class="btn btn-primary" onclick="App.copyLoginLink()" style="white-space: nowrap;">
+                            <i data-feather="copy"></i> Copy
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-secondary w-full" style="margin-top: 1rem;"
+                    onclick="App.closeUserModal()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/store.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+
+</html>
